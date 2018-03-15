@@ -1,0 +1,10 @@
+.DS_Store
+._.DS_Store
+**/.DS_Store
+**/._.DS_Store
+cmake-build-debug
+libft/obj
+libft/libft.a
+.idea
+RTv1
+
