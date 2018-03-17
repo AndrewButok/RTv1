@@ -12,8 +12,13 @@
 
 #include "figure.h"
 
+t_vector	get_intersection(t_ray ray, double k)
+{
+	return (vector_sum(vk_multiple(vector_sub(ray.v, ray.o), k), ray.o));
+}
+
 double		check_intersection(t_ray ray, t_figure figure)
 {
 	if (figure.figure == sphere)
-		return (check_spere_intersection(ray, figure));
+		return (check_sphere_intersection(ray, figure));
 }

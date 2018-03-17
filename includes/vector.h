@@ -21,6 +21,7 @@ typedef struct	s_vector
 	double	z;
 }				t_vector;
 
+t_vector		vector_init(double x, double y, double z);
 double			vscalar_multiple(t_vector a, t_vector b);
 t_vector		vk_multiple(t_vector vector, double k);
 t_vector		vvector_multiple(t_vector a, t_vector b);

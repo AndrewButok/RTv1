@@ -39,7 +39,10 @@ typedef struct	s_figure
 	t_color			color;
 }				t_figure;
 
-double		check_spere_intersection(t_ray ray, t_figure figure);
-double		check_intersection(t_ray ray, t_figure figure);
+double			check_sphere_intersection(t_ray ray, t_figure figure);
+t_vector		get_sphere_normale(t_vector p, t_figure f);
+t_figure		sphere_init(t_vector center, double r, t_color color);
+double			check_intersection(t_ray ray, t_figure figure);
+t_vector		get_intersection(t_ray ray, double k);
 
 #endif

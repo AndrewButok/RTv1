@@ -12,7 +12,7 @@
 
 #include "figure.h"
 
-double		get_solve(double a, double b, double d, t_ray ray)
+static double	get_solve(double a, double b, double d, t_ray ray)
 {
 	double x1;
 	double x2;
@@ -21,10 +21,10 @@ double		get_solve(double a, double b, double d, t_ray ray)
 		return ((-b)/(2 * a));
 	x1 = (-b + sqrt(d))/(2 * a);
 	x2 = (-b - sqrt(d))/(2 * a);
-	return ((x1 > x2) && x1 > ray.v.z ? x1 : x2);
+	return ((x1 < x2) && x2 > ray.v.z ? x1 : x2);
 }
 
-double		check_spere_intersection(t_ray ray, t_figure figure)
+double			check_sphere_intersection(t_ray ray, t_figure figure)
 {
 	t_vector	buf;
 	double		a;
@@ -41,4 +41,20 @@ double		check_spere_intersection(t_ray ray, t_figure figure)
 		return (-1);
 	else
 		return (get_solve(a, b, d, ray));
+}
+
+t_vector		get_sphere_normale(t_vector p, t_figure f)
+{
+	return (vector_normalize(vector_sub(p, f.center)));
+}
+
+t_figure		sphere_init(t_vector center, double r, t_color color)
+{
+	t_figure new_figure;
+
+	new_figure.figure = sphere;
+	new_figure.center = center;
+	new_figure.radius = r;
+	new_figure.color = color;
+	return (new_figure);
 }

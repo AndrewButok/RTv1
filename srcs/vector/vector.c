@@ -12,6 +12,16 @@
 
 #include "vector.h"
 
+t_vector	vector_init(double x, double y, double z)
+{
+	t_vector	new_vector;
+
+	new_vector.x = x;
+	new_vector.y = y;
+	new_vector.z = z;
+	return (new_vector);
+}
+
 double		vscalar_multiple(t_vector a, t_vector b)
 {
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
