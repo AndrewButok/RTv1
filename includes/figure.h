@@ -23,6 +23,7 @@ typedef struct	s_ray
 
 enum e_figure
 {
+	no_figure = -1,
 	pane = 0,
 	sphere = 1,
 	cylinder = 2,
@@ -31,18 +32,21 @@ enum e_figure
 
 typedef struct	s_figure
 {
-	char			figure;
+	char			type;
 	t_vector		center;
 	double			radius;
 	t_vector		axis;
 	double 			angle;
-	t_color			color;
+	int				color;
+	double			reflection;
 }				t_figure;
 
 double			check_sphere_intersection(t_ray ray, t_figure figure);
 t_vector		get_sphere_normale(t_vector p, t_figure f);
-t_figure		sphere_init(t_vector center, double r, t_color color);
+t_figure		sphere_init(t_vector center, double r, int color);
 double			check_intersection(t_ray ray, t_figure figure);
+int				check_intersections(t_ray ray, t_figure *figures);
 t_vector		get_intersection(t_ray ray, double k);
+t_ray			ray_init(t_vector start, t_vector end);
 
 #endif

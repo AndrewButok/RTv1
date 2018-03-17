@@ -12,7 +12,7 @@
 
 #include "light.h"
 
-t_light		light_init(char type,t_vector o, double intencity, t_color color)
+t_light		light_init(char type,t_vector o, double intencity, int color)
 {
 	t_light new_light;
 

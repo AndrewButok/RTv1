@@ -25,4 +25,6 @@ typedef union			u_color
 	}		spectrum;
 }						t_color;
 
+int						set_brightness(int color, double brightness);
+
 #endif

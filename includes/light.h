@@ -17,19 +17,19 @@
 
 enum			e_light
 {
+	no_light = -1,
 	ambient = 0,
 	point = 1,
-	directional = 2
 };
 
 typedef struct	s_light
 {
 	char		type;
 	double		intencity;
-	t_color		color;
+	int			color;
 	t_vector	o;
 }				t_light;
 
-t_light		light_init(char type,t_vector o, double intencity, t_color color);
+t_light		light_init(char type,t_vector o, double intencity, int color);
 
 #endif

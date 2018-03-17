@@ -23,6 +23,12 @@
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720
 
+typedef struct	s_space
+{
+	t_figure	*figures;
+	t_light		*lights;
+}				t_space;
+
 typedef struct	s_view
 {
 	void	*mlx;
@@ -34,5 +40,7 @@ typedef struct	s_view
 	int		endian;
 
 }				t_view;
+
+void			do_rt(t_view *view);
 
 #endif
