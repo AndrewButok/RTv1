@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <sys/types.h>
-#include "figure.h"
+#include "rtv1.h"
 
 t_ray		ray_init(t_vector start, t_vector end)
 {
@@ -24,25 +24,25 @@ t_ray		ray_init(t_vector start, t_vector end)
 
 t_vector	get_intersection(t_ray ray, double k)
 {
-	return (vector_sum(vk_multiple(vector_sub(ray.v, ray.o), k), ray.o));
+	return (vsum(vk_multiple(vsub(ray.v, ray.o), k), ray.o));
 }
 
-double		check_intersection(t_ray ray, t_figure figure)
+double		check_intersection(t_ray ray, t_figure *figure)
 {
-	if (figure.type == sphere)
+	if (figure->type == FIGURE_TYPE_SPHERE)
 		return (check_sphere_intersection(ray, figure));
 }
 
 int			check_intersections(t_ray ray, t_figure *figures)
 {
-	size_t i;
+	t_figure	*it;
 
-	i = 0;
-	while (figures[i].type != no_figure)
+	it = figures;
+	while (it != NULL)
 	{
-		if (check_intersection(ray, figures[i]) < 1 && check_intersection(ray, figures[i]) > 0)
+		if (check_intersection(ray, it) < 1 && check_intersection(ray, it) > 0)
 			return (1);
-		i++;
+		it = it->next;
 	}
 	return (0);
 }

@@ -10,16 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "color.h"
+#include "rtv1.h"
 
 int		set_brightness(int color, double brightness)
 {
-	t_color color_t;
+	t_color	color_t;
+	int		d;
 
 	brightness = brightness > 1 ? 1 : brightness;
+	brightness = brightness < 0 ? 0 : brightness;
 	color_t.color = color;
-	color_t.spectrum.red = (unsigned char)(color_t.spectrum.red * brightness);
-	color_t.spectrum.green = (unsigned char)(color_t.spectrum.green * brightness);
-	color_t.spectrum.blue = (unsigned char)(color_t.spectrum.blue * brightness);
+	d = (int)(color_t.spectrum.red * brightness);
+	d = d > 255 ? 255 : d;
+	d = d < 0 ? 0 : d;
+	color_t.spectrum.red = (unsigned char)(d);
+	d = (int)(color_t.spectrum.green * brightness);
+	d = d > 255 ? 255 : d;
+	d = d < 0 ? 0 : d;
+	color_t.spectrum.green = (unsigned char)(d);
+	d = (int)(color_t.spectrum.blue * brightness);
+	d = d > 255 ? 255 : d;
+	d = d < 0 ? 0 : d;
+	color_t.spectrum.blue = (unsigned char)(d);
 	return (color_t.color);
 }

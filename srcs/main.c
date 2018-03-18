@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <rtv1.h>
-#include <color.h>
 
 static void	view_init(t_view **view_ptr)
 {

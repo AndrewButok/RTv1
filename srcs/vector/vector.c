@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector.h"
+#include "rtv1.h"
 
 t_vector	vector_init(double x, double y, double z)
 {

@@ -10,7 +10,17 @@ find_library(OPENGL OpenGL)
 find_library(APPKIT AppKit)
 
 set(SOURCE_FILES
-        includes/rtv1.h srcs/main.c includes/rtv1.h includes/vector.h srcs/vector/vector.c includes/figure.h srcs/figure/sphere.c srcs/figure/gl.c includes/color.h includes/light.h srcs/vector/vector2.c srcs/light/light.c srcs/do_rt.c srcs/color/color.c)
+        includes/rtv1.h
+        srcs/main.c
+        includes/rtv1.h
+        srcs/vector/vector.c
+        srcs/figure/sphere.c
+        srcs/figure/gl.c
+        srcs/vector/vector2.c
+        srcs/light/light.c
+        srcs/do_rt.c
+        srcs/color/color.c
+        srcs/space.c)
 
 
 add_executable(RTv1 ${SOURCE_FILES})
