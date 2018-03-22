@@ -23,6 +23,13 @@ t_ray		*ray_init(t_vector start, t_vector end)
 	return (ray);
 }
 
+t_vector	get_normale(t_vector ray, t_figure *f)
+{
+	if (f->type == FIGURE_TYPE_SPHERE)
+		return (get_sphere_normale(ray, f));
+	return (t_vector){0,0,0};
+}
+
 t_vector	get_intersection(t_ray *ray, double k)
 {
 	return (vsum(vk_multiple(vsub(ray->v, ray->o), k), ray->o));

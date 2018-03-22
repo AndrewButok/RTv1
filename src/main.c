@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <rtv1.h>
+#include "rtv1.h"
 
 static void	view_init(t_view **view_ptr)
 {
@@ -30,7 +30,7 @@ static void	view_init(t_view **view_ptr)
 	do_rt(view);
 	mlx_put_image_to_window(view->mlx, view->win, view->img, 0, 0);
 	mlx_destroy_image(view->mlx, view->img);
-	system("leaks RTv1");
+	//system("leaks RTv1");
 }
 
 int			main()
@@ -39,6 +39,5 @@ int			main()
 
 	view_init(&view);
 	mlx_loop(view->mlx);
-	//system("leaks RTv1");
 	return 0;
 }

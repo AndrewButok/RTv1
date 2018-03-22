@@ -104,6 +104,7 @@ t_vector		vnormalize(t_vector a);
 double			vlen(t_vector a);
 t_light			*light_init(char type,t_vector o, double intencity);
 double			check_sphere_intersection(t_ray *ray, t_figure *figure);
+t_vector		get_normale(t_vector ray, t_figure *f);
 t_vector		get_sphere_normale(t_vector p, t_figure *f);
 t_figure		*sphere_init(t_vector center, double r, int color,
 		double reflection);

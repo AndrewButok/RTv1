@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_rt.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abutok <abutok@student.unit.ua>            +#+  +:+       +#+        */
+/*   By: abutok <abutok@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 10:40:00 by abutok            #+#    #+#             */
-/*   Updated: 2018/03/17 10:40:00 by abutok           ###   ########.fr       */
+/*   Updated: 2018/03/22 20:25:35 by abutok           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,46 +27,44 @@ double			rt_lightr(t_vector l, t_vector normale, t_vector view, t_vector buf)
 		return (0);
 }
 
-//int			do_lightrt(t_space *space, t_ray ray, t_figure *figure, double k)
-//{
-//	t_ray		buf;
-//	t_vector	l;
-//	t_light		*iterator;
-//	double		brightness;
-//	double 		bbrightness;
-//	double		sc_nl;
-//
-//	brightness = 0;
-//	bbrightness = 0;
-//	buf.v = get_intersection(ray, k);
-//	buf.o = get_sphere_normale(buf.v, figure);
-//	iterator = space->lights;
-//	while (iterator != NULL)
-//	{
-//		if (iterator->type == LIGHT_TYPE_AMBIENT)
-//		{
-//			brightness += iterator->intencity;
-//			iterator = iterator->next;
-//			continue ;
-//		}
-//		l = vsub(iterator->o, buf.v);
-//		if ((sc_nl = vscalar_multiple(buf.o, l)) > 0 &&
-//				!check_intersections(ray_init(buf.v, l), space->figures))
-//			brightness += (iterator->intencity * sc_nl) / vlen(l);
-//		if (figure->reflection != -1 &&
-//				!check_intersections(ray_init(buf.v, l), space->figures))
-//		{
-//			bbrightness += rt_lightr(l, buf.o, vsub(ray.o, ray.v),
-//					vector_init(iterator->intencity,
-//							figure->reflection, 0));
-//		}
-//		iterator = iterator->next;
-//	}
-//	return (set_brightness(figure->color, brightness, bbrightness));
-//}
 int			do_lightrt(t_space *space, t_ray *ray, t_figure *figure, double k)
 {
-	return (0);
+	t_light		*light;
+	t_vector	intersection;
+	t_vector	normale;
+	t_vector	vlight;
+	t_ray		*buf;
+	double		brightness;
+	double		w_brightness;
+	double		nl_s;
+
+	light = space->lights;
+	intersection = get_intersection(ray, k);
+	normale = get_normale(intersection, figure);
+	brightness = 0;
+	w_brightness = 0;
+	while (light != NULL)
+	{
+		if (light->type == LIGHT_TYPE_AMBIENT)
+			brightness += light->intencity;
+		else
+		{
+			vlight = vsub(light->o, intersection);
+			buf = ray_init(intersection, vlight);
+			if (!check_intersections(buf, space->figures))
+			{
+				if ((nl_s = vscalar_multiple(normale, vlight)) > 0)
+					brightness += light->intencity * nl_s / vlen(vlight);
+				if (figure->reflection != -1)
+					w_brightness += rt_lightr(vlight,normale,
+							vsub(ray->o, ray->v),
+					vector_init(light->intencity,figure->reflection, 0));
+			}
+			free(buf);
+		}
+		light = light->next;
+	}
+	return (set_brightness(figure->color, brightness, w_brightness));
 }
 
 int			rt(t_space *space, t_ray *ray)
