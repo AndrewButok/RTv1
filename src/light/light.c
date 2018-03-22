@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-t_light		*light_init(char type,t_vector o, double intencity, int color)
+t_light		*light_init(char type,t_vector o, double intencity)
 {
 	t_light *new_light;
 
@@ -20,6 +20,6 @@ t_light		*light_init(char type,t_vector o, double intencity, int color)
 	new_light->type = type;
 	new_light->o = o;
 	new_light->intencity = intencity;
-	new_light->color = color;
+	new_light->next = NULL;
 	return (new_light);
 }

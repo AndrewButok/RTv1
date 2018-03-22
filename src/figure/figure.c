@@ -13,34 +13,36 @@
 #include <sys/types.h>
 #include "rtv1.h"
 
-t_ray		ray_init(t_vector start, t_vector end)
+t_ray		*ray_init(t_vector start, t_vector end)
 {
-	t_ray ray;
+	t_ray *ray;
 
-	ray.o = start;
-	ray.v = end;
+	ray = (t_ray*)malloc(sizeof(t_ray));
+	ray->o = start;
+	ray->v = end;
 	return (ray);
 }
 
-t_vector	get_intersection(t_ray ray, double k)
+t_vector	get_intersection(t_ray *ray, double k)
 {
-	return (vsum(vk_multiple(vsub(ray.v, ray.o), k), ray.o));
+	return (vsum(vk_multiple(vsub(ray->v, ray->o), k), ray->o));
 }
 
-double		check_intersection(t_ray ray, t_figure *figure)
+double		check_intersection(t_ray *ray, t_figure *figure)
 {
 	if (figure->type == FIGURE_TYPE_SPHERE)
 		return (check_sphere_intersection(ray, figure));
+	else return -1;
 }
 
-int			check_intersections(t_ray ray, t_figure *figures)
+int			check_intersections(t_ray *ray, t_figure *figures)
 {
 	t_figure	*it;
 
 	it = figures;
 	while (it != NULL)
 	{
-		if (check_intersection(ray, it) < 1 && check_intersection(ray, it) > 0)
+		if (check_intersection(ray, it) < 1 && check_intersection(ray, it) > 1e-11)
 			return (1);
 		it = it->next;
 	}

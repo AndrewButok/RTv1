@@ -12,25 +12,26 @@
 
 #include "rtv1.h"
 
-int		set_brightness(int color, double brightness)
+int		set_brightness(int color, double brightness, double bbrightness)
 {
 	t_color	color_t;
 	int		d;
 
+	brightness += bbrightness;
 	brightness = brightness > 1 ? 1 : brightness;
-	brightness = brightness < 0 ? 0 : brightness;
+	bbrightness = bbrightness > 1 ? 1 : bbrightness;
 	color_t.color = color;
 	d = (int)(color_t.spectrum.red * brightness);
 	d = d > 255 ? 255 : d;
 	d = d < 0 ? 0 : d;
-	color_t.spectrum.red = (unsigned char)(d);
+	color_t.spectrum.red = (unsigned char)(d + (int)((255 - color_t.spectrum.red) * bbrightness));
 	d = (int)(color_t.spectrum.green * brightness);
 	d = d > 255 ? 255 : d;
 	d = d < 0 ? 0 : d;
-	color_t.spectrum.green = (unsigned char)(d);
+	color_t.spectrum.green = (unsigned char)(d + (int)((255 - color_t.spectrum.green) * bbrightness));
 	d = (int)(color_t.spectrum.blue * brightness);
 	d = d > 255 ? 255 : d;
 	d = d < 0 ? 0 : d;
-	color_t.spectrum.blue = (unsigned char)(d);
+	color_t.spectrum.blue = (unsigned char)(d + (int)((255 - color_t.spectrum.blue) * bbrightness));
 	return (color_t.color);
 }
