@@ -6,7 +6,7 @@
 #    By: abutok <abutok@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/25 11:13:02 by abutok            #+#    #+#              #
-#    Updated: 2017/11/20 12:34:45 by abutok           ###   ########.fr        #
+#    Updated: 2018/03/22 19:51:18 by abutok           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,8 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 		ft_putchar.c  ft_putstr.c ft_putendl.c ft_putnbr.c ft_putchar_fd.c \
 		ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
 		ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c\
-		ft_swap.c ft_isupper.c ft_islower.c ft_sqrt.c ft_cshift.c
-OBJDIR = objs/
+		ft_swap.c ft_isupper.c ft_islower.c ft_sqrt.c ft_cshift.c get_next_line.c
+OBJDIR = obj/
 OBJ = $(addprefix $(OBJDIR), $(SRC:.c=.o))
 HDR = -I ./includes/
 GCC = gcc -c
