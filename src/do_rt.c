@@ -35,14 +35,14 @@ int			do_lightrt(t_space *space, t_ray *ray, t_figure *figure, double k)
 	t_vector	vlight;
 	t_ray		*buf;
 	double		brightness;
-	double		w_brightness;
+	double		reflected;
 	double		nl_s;
 
 	light = space->lights;
 	intersection = get_intersection(ray, k);
 	normale = get_normale(intersection, figure);
 	brightness = 0;
-	w_brightness = 0;
+	reflected = 0;
 	while (light != NULL)
 	{
 		if (light->type == LIGHT_TYPE_AMBIENT)
@@ -56,7 +56,7 @@ int			do_lightrt(t_space *space, t_ray *ray, t_figure *figure, double k)
 				if ((nl_s = vscalar_multiple(normale, vlight)) > 0)
 					brightness += light->intencity * nl_s / vlen(vlight);
 				if (figure->reflection != -1)
-					w_brightness += rt_lightr(vlight,normale,
+					reflected += rt_lightr(vlight,normale,
 							vsub(ray->o, ray->v),
 					vector_init(light->intencity,figure->reflection, 0));
 			}
@@ -64,7 +64,7 @@ int			do_lightrt(t_space *space, t_ray *ray, t_figure *figure, double k)
 		}
 		light = light->next;
 	}
-	return (set_brightness(figure->color, brightness, w_brightness));
+	return (set_brightness(figure->color, brightness, reflected));
 }
 
 int			rt(t_space *space, t_ray *ray)
@@ -79,7 +79,7 @@ int			rt(t_space *space, t_ray *ray)
 	while (iterator != NULL)
 	{
 		lbuf = check_intersection(ray, iterator);
-		if (lbuf < len && lbuf >= ray->v.z)
+		if (lbuf > 1.0 && lbuf < len)
 		{
 			len = lbuf;
 			closest = iterator;
@@ -101,7 +101,7 @@ void		do_rt(t_view *view)
 
 	space = space_init(NULL);
 	y = -1;
-	ray = ray_init(vector_init(0, 0, 0), vector_init(0, 0, 1));
+	ray = ray_init(vector_init(0, 0, -1), vector_init(0, 0, 0));
 	while (++y < WIN_HEIGHT)
 	{
 		x = -1;

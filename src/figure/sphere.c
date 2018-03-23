@@ -11,7 +11,7 @@
 
 #include "rtv1.h"
 
-static double	get_solve(double a, double b, double d, t_ray *ray)
+static double	get_solve(double a, double b, double d)
 {
 	double x1;
 	double x2;
@@ -20,7 +20,7 @@ static double	get_solve(double a, double b, double d, t_ray *ray)
 		return (-b / 2 * a);
 	x1 = (-b + sqrt(d))/(2 * a);
 	x2 = (-b - sqrt(d))/(2 * a);
-	return ((x1 < x2) && x2 >= ray->v.z ? x1 : x2);
+	return (x1 < x2 ? x1 : x2);
 }
 
 double			check_sphere_intersection(t_ray *ray, t_figure *figure)
@@ -31,15 +31,15 @@ double			check_sphere_intersection(t_ray *ray, t_figure *figure)
 	double		c;
 	double		d;
 
-	a = vscalar_multiple(ray->v, ray->v);
+	a = vscalar_multiple(vsub(ray->v, ray->o), vsub(ray->v, ray->o));
 	buf = vsub(ray->o, figure->center);
-	b = 2 * (vscalar_multiple(buf, ray->v));
+	b = 2 * (vscalar_multiple(buf, vsub(ray->v, ray->o)));
 	c = vscalar_multiple(buf, buf) - (figure->radius * figure->radius);
-	d = b * b - 4 * a * c;
+	d = pow(b, 2) - 4 * a * c;
 	if (d < 0)
 		return (-1);
 	else
-		return (get_solve(a, b, d, ray));
+		return (get_solve(a, b, d));
 }
 
 t_vector		get_sphere_normale(t_vector p, t_figure *f)
