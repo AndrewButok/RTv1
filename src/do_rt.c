@@ -111,10 +111,11 @@ void		do_rt(t_view *view)
 	while (++y < WIN_HEIGHT)
 	{
 		x = -1;
-		ray->v.y = 1 - 2 * ((y + 0.5) / WIN_HEIGHT);
+		ray->v.y = (1 - 2 * ((y + 0.5) / WIN_HEIGHT)) * tan(M_PI / 360 * FOV_Y);
 		while (++x < WIN_WIDTH)
 		{
-			ray->v.x = (((x + 0.5) / WIN_WIDTH) * 2 - 1) * (((double)WIN_WIDTH) / WIN_HEIGHT);
+			ray->v.x = (((x + 0.5) / WIN_WIDTH) * 2 - 1) *
+					(((double)WIN_WIDTH) / WIN_HEIGHT) * tan(M_PI / 360 * FOV_X);
 			cam_rotate(ray, space->cam_angle);
 			view->scene[y * WIN_WIDTH + x] = rt(space, ray);
 			ray->v.z = space->cam->v.z;

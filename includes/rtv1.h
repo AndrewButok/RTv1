@@ -20,6 +20,8 @@
 # include <math.h>
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720
+# define FOV_X 60
+# define FOV_Y 60
 # define LIGHT_TYPE_AMBIENT 0
 # define LIGHT_TYPE_POINT 1
 # define FIGURE_TYPE_PANE 0
