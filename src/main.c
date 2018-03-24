@@ -26,18 +26,19 @@ static void	view_init(t_view **view_ptr)
 	view->mlx = mlx_init();
 	view->win = mlx_new_window(view->mlx, WIN_WIDTH, WIN_HEIGHT, "RTv1");
 	view->img = mlx_new_image(view->mlx, WIN_WIDTH, WIN_HEIGHT);
-	view->scene = (int*)mlx_get_data_addr(view->img, &view->bits_per_pixel, &view->size_line, &view->endian);
+	view->scene = (int*)mlx_get_data_addr(view->img, &view->bits_per_pixel,
+			&view->size_line, &view->endian);
 	do_rt(view);
 	mlx_put_image_to_window(view->mlx, view->win, view->img, 0, 0);
 	mlx_destroy_image(view->mlx, view->img);
-	//system("leaks RTv1");
+	system("leaks RTv1");
 }
 
-int			main()
+int			main(void)
 {
 	t_view *view;
 
 	view_init(&view);
 	mlx_loop(view->mlx);
-	return 0;
+	return (0);
 }

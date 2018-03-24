@@ -21,7 +21,8 @@ set(SOURCE_FILES
         src/light/light.c
         src/do_rt.c
         src/color/color.c
-        src/space.c)
+        src/space.c
+        src/vector/rotate.c)
 
 add_library(ft ${LIBFT_SRC})
 add_executable(RTv1 ${SOURCE_FILES})

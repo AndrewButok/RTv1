@@ -31,10 +31,3 @@ t_vector	vk_multiple(t_vector vector, double k)
 {
 	return ((t_vector){vector.x * k, vector.y * k, vector.z * k});
 }
-
-t_vector	vvector_multiple(t_vector a, t_vector b)
-{
-	return ((t_vector){a.y * b.z - a.z * b.y,
-			a.z * b.x - a.x * b.z,
-			a.x * b.y - a.y * b.x });
-}

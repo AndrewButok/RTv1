@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gl.c                                               :+:      :+:    :+:   */
+/*   figure.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abutok <abutok@student.unit.ua>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -27,7 +27,7 @@ t_vector	get_normale(t_vector ray, t_figure *f)
 {
 	if (f->type == FIGURE_TYPE_SPHERE)
 		return (get_sphere_normale(ray, f));
-	return (t_vector){0,0,0};
+	return (t_vector){0, 0, 0};
 }
 
 t_vector	get_intersection(t_ray *ray, double k)
@@ -39,7 +39,8 @@ double		check_intersection(t_ray *ray, t_figure *figure)
 {
 	if (figure->type == FIGURE_TYPE_SPHERE)
 		return (check_sphere_intersection(ray, figure));
-	else return -1;
+	else
+		return (-1);
 }
 
 int			check_intersections(t_ray *ray, t_figure *figures)
@@ -49,7 +50,8 @@ int			check_intersections(t_ray *ray, t_figure *figures)
 	it = figures;
 	while (it != NULL)
 	{
-		if (check_intersection(ray, it) < 1 && check_intersection(ray, it) > 1e-11)
+		if (check_intersection(ray, it) < 1 &&
+				check_intersection(ray, it) > 1e-11)
 			return (1);
 		it = it->next;
 	}

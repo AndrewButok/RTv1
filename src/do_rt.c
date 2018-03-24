@@ -12,7 +12,8 @@
 
 #include "rtv1.h"
 
-double			rt_lightr(t_vector l, t_vector normale, t_vector view, t_vector buf)
+double		rt_lightr(t_vector l, t_vector normale,
+		t_vector view, t_vector buf)
 {
 	t_vector	r;
 	double		d;
@@ -27,44 +28,49 @@ double			rt_lightr(t_vector l, t_vector normale, t_vector view, t_vector buf)
 		return (0);
 }
 
+t_lrt		tlrt_init(t_space *space, t_ray *ray, t_figure *figure, double k)
+{
+	t_lrt	var;
+
+	var.light = space->lights;
+	var.intersection = get_intersection(ray, k);
+	var.normale = get_normale(var.intersection, figure);
+	var.bright = 0;
+	var.reflected = 0;
+	return (var);
+}
+
+/*
+**	VERY VERY BAD CODE. HELLO NORMINETTE!
+*/
+
 int			do_lightrt(t_space *space, t_ray *ray, t_figure *figure, double k)
 {
-	t_light		*light;
-	t_vector	intersection;
-	t_vector	normale;
-	t_vector	vlight;
-	t_ray		*buf;
-	double		brightness;
-	double		reflected;
-	double		nl_s;
+	t_lrt	v;
 
-	light = space->lights;
-	intersection = get_intersection(ray, k);
-	normale = get_normale(intersection, figure);
-	brightness = 0;
-	reflected = 0;
-	while (light != NULL)
+	v = tlrt_init(space, ray, figure, k);
+	while (v.light != NULL)
 	{
-		if (light->type == LIGHT_TYPE_AMBIENT)
-			brightness += light->intencity;
+		if (v.light->type == LIGHT_TYPE_AMBIENT)
+			v.bright += v.light->inten;
 		else
 		{
-			vlight = vsub(light->o, intersection);
-			buf = ray_init(intersection, vlight);
-			if (!check_intersections(buf, space->figures))
+			v.vlight = vsub(v.light->o, v.intersection);
+			v.buf = ray_init(v.intersection, v.vlight);
+			if (!check_intersections(v.buf, space->figures))
 			{
-				if ((nl_s = vscalar_multiple(normale, vlight)) > 0)
-					brightness += light->intencity * nl_s / vlen(vlight);
+				if ((v.nl_s = vscalar_multiple(v.normale, v.vlight)) > 0)
+					v.bright += v.light->inten * v.nl_s / vlen(v.vlight);
 				if (figure->reflection != -1)
-					reflected += rt_lightr(vlight,normale,
+					v.reflected += rt_lightr(v.vlight, v.normale,
 							vsub(ray->o, ray->v),
-					vector_init(light->intencity,figure->reflection, 0));
+					vector_init(v.light->inten, figure->reflection, 0));
 			}
-			free(buf);
+			free(v.buf);
 		}
-		light = light->next;
+		v.light = v.light->next;
 	}
-	return (set_brightness(figure->color, brightness, reflected));
+	return (set_brightness(figure->color, v.bright, v.reflected));
 }
 
 int			rt(t_space *space, t_ray *ray)
@@ -79,7 +85,7 @@ int			rt(t_space *space, t_ray *ray)
 	while (iterator != NULL)
 	{
 		lbuf = check_intersection(ray, iterator);
-		if (lbuf > 1.0 && lbuf < len)
+		if (lbuf >= 1.0 && lbuf < len)
 		{
 			len = lbuf;
 			closest = iterator;
@@ -100,18 +106,20 @@ void		do_rt(t_view *view)
 	int			y;
 
 	space = space_init(NULL);
+	ray = ray_init(space->cam->o, space->cam->v);
 	y = -1;
-	ray = ray_init(vector_init(0, 0, -2), vector_init(0, 0, -1));
 	while (++y < WIN_HEIGHT)
 	{
 		x = -1;
-		ray->v.y = (WIN_HEIGHT / 2.0 - y) / WIN_WIDTH;
+		ray->v.y = 1 - 2 * ((y + 0.5) / WIN_HEIGHT);
 		while (++x < WIN_WIDTH)
 		{
-			ray->v.x = (x - WIN_WIDTH / 2.0) / WIN_WIDTH;
+			ray->v.x = (((x + 0.5) / WIN_WIDTH) * 2 - 1) * (((double)WIN_WIDTH) / WIN_HEIGHT);
+			cam_rotate(ray, space->cam_angle);
 			view->scene[y * WIN_WIDTH + x] = rt(space, ray);
+			ray->v.z = space->cam->v.z;
 		}
 	}
-	space_destroy(space);
 	free(ray);
+	space_destroy(space);
 }

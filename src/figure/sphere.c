@@ -5,8 +5,9 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abutok <abutok@student.unit.ua>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/16 11:57:00 by abutok            #+#    #+#             */
-/*   Updated: 2018/03/16 11:57:00 by abutok           ###   ########.fr       */
+/*   Created: 2018/03/16 11:58:00 by abutok            #+#    #+#             */
+/*   Updated: 2018/03/16 11:58:00 by abutok           ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
@@ -18,8 +19,8 @@ static double	get_solve(double a, double b, double d)
 
 	if (d == 0)
 		return (-b / 2 * a);
-	x1 = (-b + sqrt(d))/(2 * a);
-	x2 = (-b - sqrt(d))/(2 * a);
+	x1 = (-b + sqrt(d)) / (2 * a);
+	x2 = (-b - sqrt(d)) / (2 * a);
 	return (x1 < x2 ? x1 : x2);
 }
 

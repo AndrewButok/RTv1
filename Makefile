@@ -28,7 +28,7 @@ SRCFILES = do_rt.c main.c space.c
 COLORFILES = color.c
 FIGUREFILES = figure.c sphere.c
 LIGHTFILES = light.c
-VECTORFILES = vector.c vector2.c
+VECTORFILES = vector.c vector2.c rotate.c
 #	Header folder
 INCLUDE = ./includes
 #	Binaries folder

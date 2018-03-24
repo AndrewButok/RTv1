@@ -49,7 +49,7 @@ typedef struct	s_vector
 typedef struct	s_light
 {
 	char			type;
-	double			intencity;
+	double			inten;
 	t_vector		o;
 	struct s_light	*next;
 }				t_light;
@@ -78,7 +78,20 @@ typedef struct	s_space
 	t_figure	*figures;
 	t_light		*lights;
 	t_ray		*cam;
+	t_vector	cam_angle;
 }				t_space;
+
+typedef	struct	s_lrt
+{
+	t_light		*light;
+	t_vector	intersection;
+	t_vector	normale;
+	t_vector	vlight;
+	t_ray		*buf;
+	double		bright;
+	double		reflected;
+	double		nl_s;
+}				t_lrt;
 
 typedef struct	s_view
 {
@@ -98,7 +111,6 @@ int				set_brightness(int color, double brightness, double bbrightness);
 t_vector		vector_init(double x, double y, double z);
 double			vscalar_multiple(t_vector a, t_vector b);
 t_vector		vk_multiple(t_vector vector, double k);
-t_vector		vvector_multiple(t_vector a, t_vector b);
 t_vector		vsum(t_vector a, t_vector b);
 t_vector		vsub(t_vector a, t_vector b);
 t_vector		vnormalize(t_vector a);
@@ -115,5 +127,9 @@ t_vector		get_intersection(t_ray *ray, double k);
 t_ray			*ray_init(t_vector start, t_vector end);
 t_space			*space_init(char *filename);
 void			space_destroy(t_space *space);
+void			cam_rotate(t_ray *ray, t_vector vector);
+void			rotate_x(t_vector *ps, t_vector *p0, double l);
+void			rotate_y(t_vector *ps, t_vector *p0, double l);
+void			rotate_z(t_vector *ps, t_vector *p0, double l);
 
 #endif
