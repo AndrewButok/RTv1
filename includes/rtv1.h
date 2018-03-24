@@ -18,8 +18,8 @@
 # include <stdio.h>
 # include <mlx.h>
 # include <math.h>
-# define WIN_WIDTH 1000
-# define WIN_HEIGHT 1000
+# define WIN_WIDTH 1280
+# define WIN_HEIGHT 720
 # define LIGHT_TYPE_AMBIENT 0
 # define LIGHT_TYPE_POINT 1
 # define FIGURE_TYPE_PANE 0
@@ -77,6 +77,7 @@ typedef struct	s_space
 {
 	t_figure	*figures;
 	t_light		*lights;
+	t_ray		*cam;
 }				t_space;
 
 typedef struct	s_view

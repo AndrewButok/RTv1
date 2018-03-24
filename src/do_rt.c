@@ -101,7 +101,7 @@ void		do_rt(t_view *view)
 
 	space = space_init(NULL);
 	y = -1;
-	ray = ray_init(vector_init(0, 0, -1), vector_init(0, 0, 0));
+	ray = ray_init(vector_init(0, 0, -2), vector_init(0, 0, -1));
 	while (++y < WIN_HEIGHT)
 	{
 		x = -1;
