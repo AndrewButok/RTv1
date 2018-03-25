@@ -21,16 +21,16 @@ t_space		*space_init(char *filename)
 	t_space *space;
 
 	space = (t_space*)malloc(sizeof(t_space));
-	space->cam = ray_init(vector_init(0, 0, 0), vector_init(0, 0, 1));
-	space->cam_angle = vector_init(0, 0, 0);
+	space->cam = ray_init(vector_init(0, 5, 0), vector_init(0, 5, 1));
+	space->cam_angle = vector_init(0, 0, 1);
 	space->figures =sphere_init(vector_init(0, -1, 3), 1, 0xaa0000, 100);
 	space->figures->next = sphere_init(vector_init(0, -5001, 0), 5000, 0xaaaa00, 100);
 	space->figures->next->next = sphere_init(vector_init(2, 0, 4), 1, 0xaa00, 100);
 	space->figures->next->next->next = sphere_init(vector_init(-2, 0, 4), 1, 0x0000aa, 100);
 	space->figures->next->next->next->next =sphere_init(vector_init(0, 1, 3), 0.5, 0xaa0000, 100);
-	space->lights = light_init(LIGHT_TYPE_POINT, vector_init(10, 10, 0), 0.8);
+	space->lights = light_init(LIGHT_TYPE_POINT, vector_init(0, 0, 0), 0);
 	space->lights->next = light_init(LIGHT_TYPE_AMBIENT, vector_init(-1, 1, 0), 0);
-	space->lights->next->next = light_init(LIGHT_TYPE_POINT, vector_init(10, 10, 10), 0.8);
+	space->lights->next->next = light_init(LIGHT_TYPE_POINT, vector_init(10, 10, 0), 0.8);
 	return (space);
 	filename = NULL;
 }
