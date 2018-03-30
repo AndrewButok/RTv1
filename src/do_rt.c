@@ -35,6 +35,8 @@ t_lrt		tlrt_init(t_space *space, t_ray *ray, t_figure *figure, double k)
 	var.light = space->lights;
 	var.intersection = get_intersection(ray, k);
 	var.normale = get_normale(var.intersection, figure);
+	if (vscalar_multiple(var.normale, ray->v) >= 0)
+		var.normale = vk_multiple(var.normale, -1);
 	var.bright = 0;
 	var.reflected = 0;
 	return (var);
@@ -63,7 +65,7 @@ int			do_lightrt(t_space *space, t_ray *ray, t_figure *figure, double k)
 					v.bright += v.light->inten * v.nl_s / vlen(v.vlight);
 				if (figure->reflection != -1)
 					v.reflected += rt_lightr(v.vlight, v.normale,
-							vsub(ray->o, ray->v),
+							vk_multiple(ray->v, -1),
 					vector_init(v.light->inten, figure->reflection, 0));
 			}
 			free(v.buf);
@@ -106,23 +108,22 @@ void		do_rt(t_view *view)
 	int			y;
 
 	space = space_init(NULL);
-	ray = ray_init(space->cam->o, space->cam->v);
+	ray = ray_init(space->cam->o, (t_vector){0, 0, 1});
 	y = -1;
 	while (++y < WIN_HEIGHT)
 	{
 		x = -1;
-		//ray->v.y = (1 - 2 * ((y + 0.5) / WIN_HEIGHT)) * tan(M_PI / 360 * FOV_Y) + space->cam->o.y;
-		ray->v.y = (WIN_HEIGHT / 2.0 - y) / 128;
-		ray->o.y = (WIN_HEIGHT / 2.0 - y) / 128;
 		while (++x < WIN_WIDTH)
 		{
-//			ray->v.x = (((x + 0.5) / WIN_WIDTH) * 2 - 1) *
-//					(((double)WIN_WIDTH) / WIN_HEIGHT) * tan(M_PI / 360 * FOV_X) + space->cam->o.x;
-			ray->v.x = (x - WIN_WIDTH / 2.0) / 128;
-			ray->o.x = (x - WIN_WIDTH / 2.0) / 128;
-			cam_rotate(ray, space->cam_angle);
+			ray->v.x = (((x + 0.5) / WIN_WIDTH) * 2 - 1) *
+					(((double)WIN_WIDTH) / WIN_HEIGHT) *
+					tan(M_PI / 360 * FOV_X);
+			ray->v.y = (1 - 2 * ((y + 0.5) / WIN_HEIGHT)) *
+					tan(M_PI / 360 * FOV_Y);
+			ray->v.z = 1;
+			cam_rotate(ray, space->cam->v);
 			view->scene[y * WIN_WIDTH + x] = rt(space, ray);
-			ray->v.z = space->cam->v.z;
+
 		}
 	}
 	free(ray);

@@ -26,7 +26,7 @@ VECTORDIR = ./src/vector/
 #	Source files
 SRCFILES = do_rt.c main.c space.c
 COLORFILES = color.c
-FIGUREFILES = figure.c sphere.c
+FIGUREFILES = figure.c sphere.c plane.c
 LIGHTFILES = light.c
 VECTORFILES = vector.c vector2.c rotate.c
 #	Header folder

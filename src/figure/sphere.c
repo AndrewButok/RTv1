@@ -32,9 +32,9 @@ double			check_sphere_intersection(t_ray *ray, t_figure *figure)
 	double		c;
 	double		d;
 
-	a = vscalar_multiple(vsub(ray->v, ray->o), vsub(ray->v, ray->o));
+	a = vscalar_multiple(ray->v, ray->v);
 	buf = vsub(ray->o, figure->center);
-	b = 2 * (vscalar_multiple(buf, vsub(ray->v, ray->o)));
+	b = 2 * (vscalar_multiple(buf, ray->v));
 	c = vscalar_multiple(buf, buf) - (figure->radius * figure->radius);
 	d = pow(b, 2) - 4 * a * c;
 	if (d < 0)

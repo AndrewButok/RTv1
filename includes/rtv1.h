@@ -20,11 +20,11 @@
 # include <math.h>
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720
-# define FOV_X 60
-# define FOV_Y 60
+# define FOV_X 30
+# define FOV_Y 30
 # define LIGHT_TYPE_AMBIENT 0
 # define LIGHT_TYPE_POINT 1
-# define FIGURE_TYPE_PANE 0
+# define FIGURE_TYPE_PLANE 0
 # define FIGURE_TYPE_SPHERE 1
 # define FIGURE_TYPE_CYLINDER 2
 # define FIGURE_TYPE_CONE 3
@@ -56,6 +56,10 @@ typedef struct	s_light
 	struct s_light	*next;
 }				t_light;
 
+/*
+**	t_ray type represents origin of ray and his vector. Also for camera obj
+**		this type setup coordinates of camera(o) and rotation angles(v);
+*/
 
 typedef struct	s_ray
 {
@@ -80,7 +84,6 @@ typedef struct	s_space
 	t_figure	*figures;
 	t_light		*lights;
 	t_ray		*cam;
-	t_vector	cam_angle;
 }				t_space;
 
 typedef	struct	s_lrt
@@ -123,6 +126,9 @@ t_vector		get_normale(t_vector ray, t_figure *f);
 t_vector		get_sphere_normale(t_vector p, t_figure *f);
 t_figure		*sphere_init(t_vector center, double r, int color,
 		double reflection);
+double			check_plane_intersection(t_ray *ray, t_figure *figure);
+t_vector		get_plane_normale(t_vector p, t_figure *f);
+t_figure		*plane_init(t_vector normale, double d, int color, double reflection);
 double			check_intersection(t_ray *ray, t_figure *figure);
 int				check_intersections(t_ray *ray, t_figure *figures);
 t_vector		get_intersection(t_ray *ray, double k);
@@ -130,8 +136,8 @@ t_ray			*ray_init(t_vector start, t_vector end);
 t_space			*space_init(char *filename);
 void			space_destroy(t_space *space);
 void			cam_rotate(t_ray *ray, t_vector vector);
-void			rotate_x(t_vector *ps, t_vector *p0, double l);
-void			rotate_y(t_vector *ps, t_vector *p0, double l);
-void			rotate_z(t_vector *ps, t_vector *p0, double l);
+void			rotate_x(t_vector *ps, double l);
+void			rotate_y(t_vector *ps, double l);
+void			rotate_z(t_vector *ps, double l);
 
 #endif

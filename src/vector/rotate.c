@@ -12,37 +12,34 @@
 
 #include "rtv1.h"
 
-void	rotate_x(t_vector *ps, t_vector *p0, double l)
+void	rotate_x(t_vector *ps, double l)
 {
 	double ny;
 	double nz;
 
-	l *= M_PI / 180;
-	ny = ((ps->y - p0->y) * cos(l) + (ps->z - p0->z) * sin(l) + p0->y);
-	nz = ((ps->z - p0->z) * cos(l) - (ps->y - p0->y) * sin(l) + p0->z);
+	ny = ps->y * cos(l) + ps->z * sin(l);
+	nz = ps->z * cos(l) - ps->y * sin(l);
 	ps->y = ny;
 	ps->z = nz;
 }
 
-void	rotate_y(t_vector *ps, t_vector *p0, double l)
+void	rotate_y(t_vector *ps, double l)
 {
 	double nx;
 	double nz;
 
-	l *= M_PI / 180;
-	nx = ((ps->x - p0->x) * cos(l) + (ps->z - p0->z) * sin(l) + p0->x);
-	nz = ((ps->z - p0->z) * cos(l) - (ps->x - p0->x) * sin(l) + p0->z);
+	nx = ps->x * cos(l) + ps->z  * sin(l);
+	nz = ps->z  * cos(l) - ps->x * sin(l) ;
 	ps->x = nx;
 	ps->z = nz;
 }
-void	rotate_z(t_vector *ps, t_vector *p0, double l)
+void	rotate_z(t_vector *ps, double l)
 {
 	double ny;
 	double nx;
 
-	l *= M_PI / 180;
-	nx = ((ps->x - p0->x) * cos(l) - (ps->y - p0->y) * sin(l) + p0->x);
-	ny = ((ps->y - p0->y) * cos(l) + (ps->x - p0->x) * sin(l) + p0->y);
+	nx = ps->x * cos(l) + ps->y  * sin(l);
+	ny = ps->y * cos(l) - ps->x * sin(l) ;
 	ps->x = nx;
 	ps->y = ny;
 }

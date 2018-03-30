@@ -22,7 +22,7 @@ set(SOURCE_FILES
         src/do_rt.c
         src/color/color.c
         src/space.c
-        src/vector/rotate.c)
+        src/vector/rotate.c src/figure/plane.c)
 
 add_library(ft ${LIBFT_SRC})
 add_executable(RTv1 ${SOURCE_FILES})

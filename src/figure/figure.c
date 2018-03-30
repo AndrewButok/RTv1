@@ -13,13 +13,13 @@
 #include <sys/types.h>
 #include "rtv1.h"
 
-t_ray		*ray_init(t_vector start, t_vector end)
+t_ray		*ray_init(t_vector origin, t_vector vector)
 {
 	t_ray *ray;
 
 	ray = (t_ray*)malloc(sizeof(t_ray));
-	ray->o = start;
-	ray->v = end;
+	ray->o = origin;
+	ray->v = vector;
 	return (ray);
 }
 
@@ -27,31 +27,35 @@ t_vector	get_normale(t_vector ray, t_figure *f)
 {
 	if (f->type == FIGURE_TYPE_SPHERE)
 		return (get_sphere_normale(ray, f));
-	return (t_vector){0, 0, 0};
+	else if (f->type == FIGURE_TYPE_PLANE)
+		return (get_plane_normale(ray,f));
+	return ((t_vector){0, 0, 0});
 }
 
 t_vector	get_intersection(t_ray *ray, double k)
 {
-	return (vsum(vk_multiple(vsub(ray->v, ray->o), k), ray->o));
+	return (vsum(vk_multiple(ray->v, k), ray->o));
 }
 
 double		check_intersection(t_ray *ray, t_figure *figure)
 {
 	if (figure->type == FIGURE_TYPE_SPHERE)
 		return (check_sphere_intersection(ray, figure));
-	else
-		return (-1);
+	else if (figure->type == FIGURE_TYPE_PLANE)
+		return (check_plane_intersection(ray, figure));
+	return (-1);
 }
 
 int			check_intersections(t_ray *ray, t_figure *figures)
 {
 	t_figure	*it;
+	double		k;
 
 	it = figures;
 	while (it != NULL)
 	{
-		if (check_intersection(ray, it) < 1 &&
-				check_intersection(ray, it) > 1e-11)
+		k = check_intersection(ray, it);
+		if (k < 1 && k >= 1e-11)
 			return (1);
 		it = it->next;
 	}
