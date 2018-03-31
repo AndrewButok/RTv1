@@ -18,8 +18,8 @@ double			check_plane_intersection(t_ray *ray, t_figure *figure)
 
 	r_v = -1;
 	if (figure->center.x != 0 || figure->center.y != 0 || figure->center.z != 0)
-		r_v = -(figure->radius + vscalar_multiple(ray->o, figure->center) /
-			vscalar_multiple(ray->v, figure->center));
+		r_v = -(figure->radius + vscalar_multiple(ray->o, figure->center)) /
+			vscalar_multiple(ray->v, figure->center);
 	return (r_v);
 }
 
