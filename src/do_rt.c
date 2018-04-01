@@ -123,7 +123,6 @@ void		do_rt(t_view *view)
 			ray->v.z = 1;
 			cam_rotate(ray, space->cam->v);
 			view->scene[y * WIN_WIDTH + x] = rt(space, ray);
-
 		}
 	}
 	free(ray);

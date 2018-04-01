@@ -17,6 +17,7 @@ set(SOURCE_FILES
         src/vector/vector.c
         src/figure/sphere.c
         src/figure/figure.c
+        src/figure/cylinder.c
         src/vector/vector2.c
         src/light/light.c
         src/do_rt.c

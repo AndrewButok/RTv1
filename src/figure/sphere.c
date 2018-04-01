@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-static double	get_solve(double a, double b, double d)
+double			get_sqr_solve(double a, double b, double d)
 {
 	double x1;
 	double x2;
@@ -40,7 +40,7 @@ double			check_sphere_intersection(t_ray *ray, t_figure *figure)
 	if (d < 0)
 		return (-1);
 	else
-		return (get_solve(a, b, d));
+		return (get_sqr_solve(a, b, d));
 }
 
 t_vector		get_sphere_normale(t_vector p, t_figure *f)

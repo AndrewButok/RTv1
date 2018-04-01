@@ -28,18 +28,19 @@ void	rotate_y(t_vector *ps, double l)
 	double nx;
 	double nz;
 
-	nx = ps->x * cos(l) + ps->z  * sin(l);
-	nz = ps->z  * cos(l) - ps->x * sin(l) ;
+	nx = ps->x * cos(l) + ps->z * sin(l);
+	nz = ps->z * cos(l) - ps->x * sin(l);
 	ps->x = nx;
 	ps->z = nz;
 }
+
 void	rotate_z(t_vector *ps, double l)
 {
 	double ny;
 	double nx;
 
-	nx = ps->x * cos(l) + ps->y  * sin(l);
-	ny = ps->y * cos(l) - ps->x * sin(l) ;
+	nx = ps->x * cos(l) + ps->y * sin(l);
+	ny = ps->y * cos(l) - ps->x * sin(l);
 	ps->x = nx;
 	ps->y = ny;
 }

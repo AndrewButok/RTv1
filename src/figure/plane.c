@@ -29,7 +29,8 @@ t_vector		get_plane_normale(t_vector p, t_figure *f)
 	p = (t_vector){0, 0, 0};
 }
 
-t_figure		*plane_init(t_vector normale, double d, int color, double reflection)
+t_figure		*plane_init(t_vector normale, double d, int color,
+		double reflection)
 {
 	t_figure *new_figure;
 

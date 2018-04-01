@@ -28,7 +28,9 @@ t_vector	get_normale(t_vector ray, t_figure *f)
 	if (f->type == FIGURE_TYPE_SPHERE)
 		return (get_sphere_normale(ray, f));
 	else if (f->type == FIGURE_TYPE_PLANE)
-		return (get_plane_normale(ray,f));
+		return (get_plane_normale(ray, f));
+	else if (f->type == FIGURE_TYPE_CYLINDER)
+		return (get_cylinder_normale(ray, f));
 	return ((t_vector){0, 0, 0});
 }
 
@@ -43,6 +45,8 @@ double		check_intersection(t_ray *ray, t_figure *figure)
 		return (check_sphere_intersection(ray, figure));
 	else if (figure->type == FIGURE_TYPE_PLANE)
 		return (check_plane_intersection(ray, figure));
+	else if (figure->type == FIGURE_TYPE_CYLINDER)
+		return (check_cylinder_intersection(ray, figure));
 	return (-1);
 }
 
