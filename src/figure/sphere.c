@@ -21,7 +21,11 @@ double			get_sqr_solve(double a, double b, double d)
 		return (-b / 2 * a);
 	x1 = (-b + sqrt(d)) / (2 * a);
 	x2 = (-b - sqrt(d)) / (2 * a);
-	return (x1 < x2 ? x1 : x2);
+	if (x1 <= 1e-11)
+		return (x2);
+	if (x2 <= 1e-11)
+		return (x1);
+	return (x1 <= x2 ? x1 : x2);
 }
 
 double			check_sphere_intersection(t_ray *ray, t_figure *figure)

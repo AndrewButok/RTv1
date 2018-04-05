@@ -58,7 +58,9 @@ typedef struct	s_light
 
 /*
 **	t_ray type represents origin of ray and his vector. Also for camera obj
-**		this type setup coordinates of camera(o) and rotation angles(v);
+**		this type setup coordinates of camera(o) and rotation angles(v).
+**		In cylinder context this type represents start of cylinder axis(o)
+**		and direction vector.
 */
 
 typedef struct	s_ray
@@ -112,7 +114,8 @@ typedef struct	s_view
 }				t_view;
 
 void			do_rt(t_view *view);
-int				set_brightness(int color, double brightness, double bbrightness);
+int				set_brightness(int color, double brightness,
+		double bbrightness);
 t_vector		vector_init(double x, double y, double z);
 double			vscalar_multiple(t_vector a, t_vector b);
 t_vector		vk_multiple(t_vector vector, double k);
@@ -129,7 +132,8 @@ t_figure		*sphere_init(t_vector center, double r, int color,
 		double reflection);
 double			check_plane_intersection(t_ray *ray, t_figure *figure);
 t_vector		get_plane_normale(t_vector p, t_figure *f);
-t_figure		*plane_init(t_vector normale, double d, int color, double reflection);
+t_figure		*plane_init(t_vector normale, double d, int color,
+		double reflection);
 double			check_intersection(t_ray *ray, t_figure *figure);
 int				check_intersections(t_ray *ray, t_figure *figures);
 t_vector		get_intersection(t_ray *ray, double k);
@@ -141,7 +145,12 @@ void			rotate_x(t_vector *ps, double l);
 void			rotate_y(t_vector *ps, double l);
 void			rotate_z(t_vector *ps, double l);
 double			check_cylinder_intersection(t_ray *ray, t_figure *figure);
-t_figure		*cylinder_init(t_ray *axis, double radius, int color, double reflection);
+t_figure		*cylinder_init(t_ray *axis, double radius, int color, double
+		reflection);
 t_vector		get_cylinder_normale(t_vector p, t_figure *figure);
+double			check_cone_intersection(t_ray *ray, t_figure *figure);
+t_vector		get_cone_normale(t_vector p, t_figure *figure);
+t_figure		*cone_init(t_ray *axis, double k, int color,
+		double reflection);
 
 #endif
