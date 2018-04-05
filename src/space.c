@@ -28,7 +28,7 @@ t_space		*space_init(char *filename)
 	space->figures->next->next->next = sphere_init(vector_init(-2, 0, 4), 1, 0x0000aa, 100);
 	space->figures->next->next->next->next =sphere_init(vector_init(0, 1, 3), 0.5, 0x9900aa, 100);
 	space->figures->next->next->next->next->next = cone_init(ray_init(
-			(t_vector){0, 0, 6}, (t_vector){1, -1, 0}), 0.25, 0xffff, 100);
+			(t_vector){0, 0, 6}, (t_vector){0, -1, 0}), 0.25, 0xffff, 100);
 	space->figures->next->next->next->next->next->next = cylinder_init
 			(ray_init((t_vector){-5, 0, 6},(t_vector){0, -1, 0}), 1,
 					0x00ff00, 200);
