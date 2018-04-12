@@ -16,29 +16,26 @@
 **	todo parse
 */
 
-t_space		*space_init(char *filename)
+void		space_init(char *filename, t_view *view)
 {
-	t_space *space;
-
-	space = (t_space*)malloc(sizeof(t_space));
-	space->cam = ray_init(vector_init(0, -1, -8), vector_init(0, 0, 0));
-	space->figures = plane_init(vector_init(0, -1, 0), -3, 0xaaaa00, 200);
-	space->figures->next = sphere_init(vector_init(0, -1, 3), 1, 0xaa0000, 100);
-	space->figures->next->next = sphere_init(vector_init(2, 0, 4), 1, 0xaa00, 100);
-	space->figures->next->next->next = sphere_init(vector_init(-2, 0, 4), 1, 0x0000aa, 100);
-	space->figures->next->next->next->next =sphere_init(vector_init(0, 1, 3), 0.5, 0x9900aa, 100);
-	space->figures->next->next->next->next->next = cone_init(ray_init(
+	view->space = (t_space*)malloc(sizeof(t_space));
+	view->space->cam = ray_init(vector_init(0, -1, -8), vector_init(0, 0, 0));
+	view->space->figures = plane_init(vector_init(0, -1, 0), -3, 0xaaaa00, 200);
+	view->space->figures->next = sphere_init(vector_init(0, -1, 3), 1, 0xaa0000, 100);
+	view->space->figures->next->next = sphere_init(vector_init(2, 0, 4), 1, 0xaa00, 100);
+	view->space->figures->next->next->next = sphere_init(vector_init(-2, 0, 4), 1, 0x0000aa, 100);
+	view->space->figures->next->next->next->next =sphere_init(vector_init(0, 1, 3), 0.5, 0x9900aa, 100);
+	view->space->figures->next->next->next->next->next = cone_init(ray_init(
 			(t_vector){0, 0, 6}, (t_vector){0, -1, 0}), 0.25, 0xffff, 100);
-	space->figures->next->next->next->next->next->next = cylinder_init
+	view->space->figures->next->next->next->next->next->next = cylinder_init
 			(ray_init((t_vector){-5, 0, 6},(t_vector){0, -1, 0}), 1,
 					0x00ff00, 200);
-	space->lights = light_init(LIGHT_TYPE_POINT, vector_init(6, 6, -8), 0.8);
-	//space->lights->next = light_init(LIGHT_TYPE_AMBIENT, vector_init(-1, 1,
+	view->space->lights = light_init(LIGHT_TYPE_POINT, vector_init(6, 6, -8), 0.8);
+	//view->space->lights->next = light_init(LIGHT_TYPE_AMBIENT, vector_init(-1, 1,
 			//0), 0.1);
-//	space->lights->next = light_init(LIGHT_TYPE_POINT, vector_init(6,
+//	view->space->lights->next = light_init(LIGHT_TYPE_POINT, vector_init(6,
 //			10, 2), 0.3);
-	return (space);
-	filename = NULL;
+	parse_space(filename, view);
 }
 
 void		cam_rotate(t_ray *ray, t_vector vector)

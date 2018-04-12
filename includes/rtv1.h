@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <mlx.h>
 # include <math.h>
+# include <fcntl.h>
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720
 # define FOV_X 30
@@ -113,6 +114,7 @@ typedef struct	s_view
 
 }				t_view;
 
+int				exit_x(t_view *view);
 void			do_rt(t_view *view);
 int				set_brightness(int color, double brightness,
 		double bbrightness);
@@ -138,8 +140,7 @@ double			check_intersection(t_ray *ray, t_figure *figure);
 int				check_intersections(t_ray *ray, t_figure *figures);
 t_vector		get_intersection(t_ray *ray, double k);
 t_ray			*ray_init(t_vector start, t_vector end);
-t_space			*space_init(char *filename);
-void			space_destroy(t_space *space);
+void			space_init(char *filename, t_view *view);
 void			cam_rotate(t_ray *ray, t_vector vector);
 void			rotate_x(t_vector *ps, double l);
 void			rotate_y(t_vector *ps, double l);
@@ -152,5 +153,18 @@ double			check_cone_intersection(t_ray *ray, t_figure *figure);
 t_vector		get_cone_normale(t_vector p, t_figure *figure);
 t_figure		*cone_init(t_ray *axis, double k, int color,
 		double reflection);
+//JSON
+void			read_error(t_view *view);
+void			parse_space(char *filename, t_view *view);
+void			sb_up_error(t_view *view);
+void			fb_up_error(t_view *view);
+void			q_up_error(t_view *view);
+void			null_str_error(t_view *view);
+void			figures_arr_error(t_view *view);
+char			*get_figures_str(const char *str, t_view *view);
+void			lights_arr_error(t_view *view);
+char			*get_lights_str(const char *str, t_view *view);
+void			cam_class_error(t_view *view);
+char			*get_cam_str(const char *str, t_view *view);
 
 #endif

@@ -25,7 +25,11 @@ set(SOURCE_FILES
         src/space.c
         src/vector/rotate.c
         src/figure/plane.c
-        src/figure/cone.c)
+        src/figure/cone.c
+        src/json/json_start.c
+        src/json/json_err.c
+        src/json/json_arrerr.c
+        src/json/json_global_getter.c)
 
 add_library(ft ${LIBFT_SRC})
 add_executable(RTv1 ${SOURCE_FILES})

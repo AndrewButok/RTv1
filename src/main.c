@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-static void	view_init(t_view **view_ptr)
+static void	view_init(t_view **view_ptr, char *filename)
 {
 	t_view		*view;
 
@@ -23,6 +23,7 @@ static void	view_init(t_view **view_ptr)
 		perror("View malloc error");
 	}
 	*view_ptr = view;
+	space_init(filename, view);
 	view->mlx = mlx_init();
 	view->win = mlx_new_window(view->mlx, WIN_WIDTH, WIN_HEIGHT, "RTv1");
 	view->img = mlx_new_image(view->mlx, WIN_WIDTH, WIN_HEIGHT);
@@ -31,14 +32,21 @@ static void	view_init(t_view **view_ptr)
 	do_rt(view);
 	mlx_put_image_to_window(view->mlx, view->win, view->img, 0, 0);
 	mlx_destroy_image(view->mlx, view->img);
-//	system("leaks RTv1");
+	system("leaks RTv1");
 }
 
-int			main(void)
+int		exit_x(t_view *view)
+{
+	exit(1);
+	view = NULL;
+	return (0);
+}
+
+int			main(int argc, char **argv)
 {
 	t_view *view;
 
-	view_init(&view);
+	view_init(&view, argv[1]);
 	mlx_loop(view->mlx);
 	return (0);
 }

@@ -103,13 +103,11 @@ int			rt(t_space *space, t_ray *ray)
 
 void		do_rt(t_view *view)
 {
-	t_space		*space;
 	t_ray		*ray;
 	int			x;
 	int			y;
 
-	space = space_init(NULL);
-	ray = ray_init(space->cam->o, (t_vector){0, 0, 1});
+	ray = ray_init(view->space->cam->o, (t_vector){0, 0, 1});
 	y = -1;
 	while (++y < WIN_HEIGHT)
 	{
@@ -122,10 +120,9 @@ void		do_rt(t_view *view)
 			ray->v.y = (1 - 2 * ((y + 0.5) / WIN_HEIGHT)) *
 					tan(M_PI / 360 * FOV_Y);
 			ray->v.z = 1;
-			cam_rotate(ray, space->cam->v);
-			view->scene[y * WIN_WIDTH + x] = rt(space, ray);
+			cam_rotate(ray, view->space->cam->v);
+			view->scene[y * WIN_WIDTH + x] = rt(view->space, ray);
 		}
 	}
 	free(ray);
-	space_destroy(space);
 }
