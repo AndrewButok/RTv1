@@ -97,7 +97,6 @@ int			rt(t_space *space, t_ray *ray)
 	if (len == INFINITY)
 		return (0);
 	else
-		//return closest->color;
 		return (do_lightrt(space, ray, closest, len));
 }
 

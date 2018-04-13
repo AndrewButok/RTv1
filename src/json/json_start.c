@@ -75,6 +75,8 @@ void	parse_space(char *filename, t_view *view)
 	char	*lights;
 	char	*figures;
 	char	*cam;
+	char	**figures_a;
+	char	**lights_a;
 
 	str = read_space(filename, view);
 	check_braces(str, view);
@@ -82,11 +84,20 @@ void	parse_space(char *filename, t_view *view)
 	lights = get_lights_str(str, view);
 	cam = get_cam_str(str, view);
 	ft_strdel(&str);
+	figures_a  = get_strarr_members(figures, view);
+	lights_a = get_strarr_members(lights, view);
 
-	printf("%s\n", figures);
-	printf("%s\n", lights);
-	printf("%s\n", cam);
+	while (*figures_a!= NULL)
+	{
+		printf("%s\n", *figures_a);
+		figures_a++;
+	}
 
+	while (*lights_a!= NULL)
+	{
+		printf("%s\n", *lights_a);
+		lights_a++;
+	}
 	ft_strdel(&figures);
 	ft_strdel(&lights);
 	ft_strdel(&cam);

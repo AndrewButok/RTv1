@@ -166,5 +166,6 @@ void			lights_arr_error(t_view *view);
 char			*get_lights_str(const char *str, t_view *view);
 void			cam_class_error(t_view *view);
 char			*get_cam_str(const char *str, t_view *view);
+char			**get_strarr_members(const char *str, t_view *view);
 
 #endif

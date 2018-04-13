@@ -12,25 +12,50 @@
 
 #include "rtv1.h"
 
-char	**get_figures_strarr(const char *str, t_view *view)
+char	*ft_strtrimarr(const char *s)
+{
+	size_t	start;
+	size_t	size;
+
+	if (s == NULL)
+		return (NULL);
+	if (*s == '\0')
+		return (ft_strnew(0));
+	start = 0;
+	while ((s[start] == ' ' || s[start] == '\n' || s[start] == '\t' ||
+			s[start] == '{' || s[start] == ',')
+			&& s[start] != '\0')
+		start++;
+	size = ft_strlen(s);
+	if (start == size)
+		return (ft_strnew(0));
+	while (s[size] == ' ' || s[size] == '\n' || s[size] == '\t'
+			|| s[size] == '\0')
+		size--;
+	return (ft_strsub(s, (unsigned int)start, (size - start + 1)));
+}
+
+char	**get_strarr_members(const char *str, t_view *view)
 {
 	char	**buf;
-	char	**figures;
-	char	*bs;
+	char	**members;
 	size_t	i;
 
 	buf = ft_strsplit(str, '}');
 	i = 0;
 	while (*(buf + i) != NULL)
 		i++;
-	figures = (char**)malloc(sizeof(char*) * (i + 1));
+	members = (char**)malloc(sizeof(char*) * (i + 1));
 	i = 0;
 	while (*(buf + i) != NULL)
 	{
-		bs = *(buf + i);
-
+		*(members + i) = ft_strtrimarr(*(buf + i));
+		ft_strdel(buf + i);
 		i++;
 	}
+	*(members + i) = NULL;
+	free(buf);
+	return (members);
 }
 
 char	*get_cam_str(const char *str, t_view *view)
