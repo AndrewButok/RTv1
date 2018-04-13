@@ -35,7 +35,7 @@ static void	view_init(t_view **view_ptr, char *filename)
 	system("leaks RTv1");
 }
 
-int		exit_x(t_view *view)
+int			exit_x(t_view *view)
 {
 	exit(1);
 	view = NULL;

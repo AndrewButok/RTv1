@@ -63,7 +63,7 @@ int			do_lightrt(t_space *space, t_ray *ray, t_figure *figure, double k)
 			{
 				if ((v.nl_s = vscalar_multiple(v.normale, v.vlight)) > 0)
 					v.bright += v.light->inten * v.nl_s / vlen(v.vlight);
-				if (figure->reflection >= 1)
+				if (figure->reflection > 0)
 					v.reflected += rt_lightr(v.vlight, v.normale,
 							vk_multiple(ray->v, -1),
 					vector_init(v.light->inten, figure->reflection, 0));

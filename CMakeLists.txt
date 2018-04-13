@@ -26,10 +26,16 @@ set(SOURCE_FILES
         src/vector/rotate.c
         src/figure/plane.c
         src/figure/cone.c
-        src/json/json_start.c
-        src/json/json_err.c
-        src/json/json_arrerr.c
-        src/json/json_global_getter.c)
+        src/parse/parse.c
+        src/parse/parse_error.c
+        src/parse/parse_cam.c
+        src/parse/parse_fplane.c
+        src/parse/parse_fsphere.c
+        src/parse/parse_fcylinder.c
+        src/parse/parse_fcone.c
+        src/parse/parse_light.c
+        src/parse/ft_atod.c
+        src/parse/ft_hexatoi.c)
 
 add_library(ft ${LIBFT_SRC})
 add_executable(RTv1 ${SOURCE_FILES})

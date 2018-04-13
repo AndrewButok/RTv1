@@ -18,7 +18,7 @@ double			check_cone_intersection(t_ray *ray, t_figure *figure)
 	double b;
 	double c;
 	double d;
-	
+
 	a = vscalar_multiple(ray->v, ray->v) -
 			((1 + pow(figure->radius, 2)) *
 			(pow(vscalar_multiple(ray->v, figure->axis), 2)));
