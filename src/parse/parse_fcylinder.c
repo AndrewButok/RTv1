@@ -31,22 +31,18 @@ void			parse_fcylinder(char **params, t_view *view)
 		return ;
 	if (!check_paramnum(params, PARAM_NUM))
 	{
-		ft_putendl_fd("Wrong cylinder paremeters numbers. Figure missed", STDERR_FILENO);
-		return;
+		ft_putendl_fd("Wrong cylinder paremeters numbers. Figure skipped",
+				STDERR_FILENO);
+		return ;
 	}
 	cylinder = set_default_cylinder();
 	cylinder->center = parse_vector(params[1], cylinder->center);
 	cylinder->axis = vnormalize(parse_vector(params[2], cylinder->center));
-	d = ft_atod(params[3]);
+	d = get_double_param(params[3], "radius");
 	cylinder->radius = isnan(d) ? cylinder->radius : d;
-	if (isnan(d))
-		ft_putendl_fd("Invalid radius parameter. Default applied.",
-				STDERR_FILENO);
 	cylinder->color = check_hex(params[4]) ? ft_hexatoi(params[4]) :
 			cylinder->color;
-	d = ft_atod(params[5]);
+	d = get_double_param(params[5], "reflection");
 	cylinder->reflection = isnan(d) ? cylinder->reflection : d;
-	if (isnan(d))
-		ft_putendl_fd("Invalid reflection. Default applied.", STDERR_FILENO);
 	add_figure(cylinder, view);
 }

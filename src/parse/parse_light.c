@@ -31,21 +31,19 @@ void			parse_light(char **params, t_view *view)
 	else if (ft_strequ("l_point", params[0]))
 		type = LIGHT_TYPE_POINT;
 	else
-		return;
+		return ;
 	if (check_paramnum(params, ft_strequ("l_point", params[0]) ? 2 : 3))
 	{
-		ft_putendl_fd("Wrong light paremeters numbers. Light missed",
+		ft_putendl_fd("Wrong light paremeters numbers. Light skipped",
 				STDERR_FILENO);
-		return;
+		return ;
 	}
 	light = set_default_light();
 	light->type = type;
 	if (ft_strequ("l_point", params[0]))
 		light->o = parse_vector(params[1], light->o);
-	d = ft_atod(params[ft_strequ("l_point", params[0]) ? 2 : 1]);
+	d = get_double_param((params[ft_strequ("l_point", params[0]) ? 2 : 1]),
+			"intensivity");
 	light->inten = isnan(d) ? light->inten : d;
-	if (isnan(d))
-		ft_putendl_fd("Invalid tan parameter. Default applied.",
-				STDERR_FILENO);
 	add_light(light, view);
 }

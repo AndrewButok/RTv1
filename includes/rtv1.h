@@ -169,5 +169,6 @@ void					parse_fsphere(char **params, t_view *view);
 void					parse_fcylinder(char **params, t_view *view);
 void					parse_fcone(char **params, t_view *view);
 void					parse_light(char **params, t_view *view);
+double					get_double_param(char *str, char *name);
 
 #endif

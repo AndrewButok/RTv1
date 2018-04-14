@@ -30,8 +30,9 @@ void			parse_fplane(char **params, t_view *view)
 		return ;
 	if (!check_paramnum(params, PARAM_NUM))
 	{
-		ft_putendl_fd("Wrong plane paremeters numbers. Figure missed", STDERR_FILENO);
-		return;
+		ft_putendl_fd("Wrong plane paremeters numbers. Figure skipped",
+				STDERR_FILENO);
+		return ;
 	}
 	plane = set_default_plane();
 	plane->center = vnormalize(parse_vector(params[1], plane->center));

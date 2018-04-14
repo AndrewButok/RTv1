@@ -23,12 +23,16 @@ COLORDIR = ./src/color/
 FIGUREDIR = ./src/figure/
 LIGHTDIR = ./src/light/
 VECTORDIR = ./src/vector/
+PARSEDIR = ./src/parse/
 #	Source files
 SRCFILES = do_rt.c main.c space.c
 COLORFILES = color.c
 FIGUREFILES = figure.c sphere.c plane.c cylinder.c cone.c
 LIGHTFILES = light.c
 VECTORFILES = vector.c vector2.c rotate.c
+PARSEFILES = ft_atod.c ft_hexatoi.c parse.c parse_cam.c parse_error.c \
+				parse_fcone.c parse_fcylinder.c parse_fplane.c parse_fsphere.c \
+				parse_light.c
 #	Header folder
 INCLUDE = ./includes
 #	Binaries folder
@@ -38,7 +42,8 @@ BIN = $(addprefix $(BINDIR), $(SRCFILES:.c=.o)) \
 		$(addprefix $(BINDIR), $(COLORFILES:.c=.o)) \
 		$(addprefix $(BINDIR), $(FIGUREFILES:.c=.o)) \
 		$(addprefix $(BINDIR), $(LIGHTFILES:.c=.o)) \
-		$(addprefix $(BINDIR), $(VECTORFILES:.c=.o))
+		$(addprefix $(BINDIR), $(VECTORFILES:.c=.o)) \
+		$(addprefix $(BINDIR), $(PARSEFILES:.c=.o))
 #	Libft
 LIBFT = ./libft/libft.a
 #	Libft header
@@ -53,6 +58,9 @@ $(NAME): $(BINDIR) $(BIN)
 
 $(BINDIR):
 	@if [ ! -d "$(BINDIR)" ]; then mkdir $(BINDIR); fi
+
+$(BINDIR)%.o: $(PARSEDIR)%.c
+	$(GCC) -c -I $(INCLUDE) -I $(LIBFTINCLUDE) $< -o $@
 
 $(BINDIR)%.o: $(SRCDIR)%.c
 	$(GCC) -c -I $(INCLUDE) -I $(LIBFTINCLUDE) $< -o $@

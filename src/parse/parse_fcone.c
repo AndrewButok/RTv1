@@ -31,24 +31,18 @@ void			parse_fcone(char **params, t_view *view)
 		return ;
 	if (!check_paramnum(params, PARAM_NUM))
 	{
-		ft_putendl_fd("Wrong cone paremeters numbers. Figure missed",
+		ft_putendl_fd("Wrong cone paremeters numbers. Figure skipped",
 				STDERR_FILENO);
-		return;
+		return ;
 	}
 	cone = set_default_cone();
 	cone->center = parse_vector(params[1], cone->center);
 	cone->axis = vnormalize(parse_vector(params[2], cone->center));
-	d = ft_atod(params[3]);
+	d = get_double_param(params[3], "tan");
 	cone->radius = isnan(d) ? cone->radius : d;
-	if (isnan(d))
-		ft_putendl_fd("Invalid tan parameter. Default applied.",
-				STDERR_FILENO);
 	cone->color = check_hex(params[4]) ? ft_hexatoi(params[4]) :
 			cone->color;
-	d = ft_atod(params[5]);
+	d = get_double_param(params[5], "reflection");
 	cone->reflection = isnan(d) ? cone->reflection : d;
-	if (isnan(d))
-		ft_putendl_fd("Invalid reflection. Default applied.", STDERR_FILENO);
 	add_figure(cone, view);
-
 }

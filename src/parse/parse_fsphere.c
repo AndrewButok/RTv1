@@ -30,21 +30,17 @@ void			parse_fsphere(char **params, t_view *view)
 		return ;
 	if (!check_paramnum(params, PARAM_NUM))
 	{
-		ft_putendl_fd("Wrong cone paremeters numbers. Figure missed", STDERR_FILENO);
-		return;
+		ft_putendl_fd("Wrong sphere paremeters numbers. Figure skiped",
+				STDERR_FILENO);
+		return ;
 	}
 	sphere = set_default_sphere();
 	sphere->center = parse_vector(params[1], sphere->center);
-	d = ft_atod(params[2]);
+	d = get_double_param(params[2], "radius");
 	sphere->radius = isnan(d) ? sphere->radius : d;
-	if (isnan(d))
-		ft_putendl_fd("Invalid radius parameter. Default applied.",
-				STDERR_FILENO);
 	sphere->color = check_hex(params[3]) ? ft_hexatoi(params[3]) :
 			sphere->color;
-	d = ft_atod(params[4]);
+	d = get_double_param(params[4], "reflection");
 	sphere->reflection = isnan(d) ? sphere->reflection : d;
-	if (isnan(d))
-		ft_putendl_fd("Invalid reflection. Default applied.", STDERR_FILENO);
 	add_figure(sphere, view);
 }

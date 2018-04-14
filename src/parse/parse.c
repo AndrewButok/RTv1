@@ -12,9 +12,23 @@
 
 #include "rtv1.h"
 
+double			get_double_param(char *str, char *name)
+{
+	double d;
+
+	d = ft_atod(str);
+	if (isnan(d))
+	{
+		ft_putstr_fd("Invalid ", STDERR_FILENO);
+		ft_putstr_fd(name, STDERR_FILENO);
+		ft_putendl_fd(" parameter. Default applied.", STDERR_FILENO);
+	}
+	return (d);
+}
+
 int				check_paramnum(char **param, size_t n)
 {
-	int c;
+	size_t c;
 
 	if (param == NULL)
 		return (0);
@@ -34,14 +48,12 @@ static	void	get_obj(char **params, t_view *view)
 	parse_fcylinder(params, view);
 	parse_fcone(params, view);
 	parse_light(params, view);
-	return ;
 }
 
 void			parse_scene(char *filename, t_view *view)
 {
 	char	*str;
 	char	**params;
-	int		e;
 	int		fd;
 
 	fd = open(filename, O_RDONLY);

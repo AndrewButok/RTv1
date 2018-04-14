@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#define ESC_KEY 53
 
 static void	view_init(t_view **view_ptr, char *filename)
 {
@@ -32,7 +33,13 @@ static void	view_init(t_view **view_ptr, char *filename)
 	do_rt(view);
 	mlx_put_image_to_window(view->mlx, view->win, view->img, 0, 0);
 	mlx_destroy_image(view->mlx, view->img);
-	system("leaks RTv1");
+}
+
+int			do_keyboard(int key, t_view *view)
+{
+	if (key == ESC_KEY)
+		exit_x(view);
+	return (1);
 }
 
 int			exit_x(t_view *view)
@@ -46,7 +53,13 @@ int			main(int argc, char **argv)
 {
 	t_view *view;
 
+	if (argc != 2)
+	{
+		ft_putstr("usage: RTv1 scene_filename\n");
+	}
 	view_init(&view, argv[1]);
+	mlx_hook(view->win, 2, 0, &do_keyboard, view);
+	mlx_hook(view->win, 17, 1L << 17, &exit_x, view);
 	mlx_loop(view->mlx);
 	return (0);
 }

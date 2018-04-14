@@ -3,8 +3,6 @@ project(RTv1 C)
 
 set(CMAKE_C_STANDARD 99)
 
-set(LIBFT ${CMAKE_SOURCE_DIR}/libft/libft.a)
-
 find_library(MLX mlx)
 find_library(OPENGL OpenGL)
 find_library(APPKIT AppKit)

@@ -46,6 +46,7 @@ t_vector			parse_vector(char *str, t_vector vector)
 		vector_error();
 		vector = vector_init(0, 0, 0);
 	}
+	def = vector_init(0, 0, 0);
 	vector = check_nan(vector, def);
 	del_strs(&doubles);
 	return (vector);
