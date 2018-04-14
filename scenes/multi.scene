@@ -1,0 +1,21 @@
+cam			(0.0 0.0 -10.0)	(0.0 0.0 0)
+
+f_plane		(0.0 1 0)					3				0xffffff	100
+f_plane		(0.0 1 0)					-3				0xaaaaaa	100
+f_plane		(0.0 0 1)					-20				0xaa		0
+f_cylinder	(-3 0 4)		(0 1 0)		0.625			0xffffff	200
+f_cylinder	(3.0 0 4)		(0 1 0)		0.625			0xffffff	200
+f_cylinder	(-3 0 12)		(0 1 0)		0.625			0xffffff	200
+f_cylinder	(3.0 0 12)		(0 1 0)		0.625			0xffffff	200
+f_sphere	(3.0 -3 12)					1				0xffffff	10
+f_sphere	(3.0 3 12)					1				0xffffff	10
+f_sphere	(-3 -3 12)					1				0xffffff	10
+f_sphere	(-3 3 12)					1				0xffffff	10
+f_sphere	(3.0 -3 4)					1				0xffffff	10
+f_sphere	(3.0 3 4)					1				0xffffff	10
+f_sphere	(-3 -3 4)					1				0xffffff	10
+f_sphere	(-3 3 4)					1				0xffffff	10
+f_sphere	(0 -2 5)					0.5				0xff0000	10
+
+l_point		(-7 0 0)	0.7
+l_point		(7 0 0)	0.7
