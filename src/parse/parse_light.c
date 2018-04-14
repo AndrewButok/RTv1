@@ -20,6 +20,23 @@ static t_light	*set_default_light(void)
 	return (light);
 }
 
+static double	check_intensivity(double d)
+{
+	if (d < 0)
+	{
+		d = 0;
+		ft_putendl_fd("Intensivity is too low. Default 0 applied",
+				STDERR_FILENO);
+	}
+	if (d > 1)
+	{
+		d = 1;
+		ft_putendl_fd("Intensivity is too high. Default 1 applied",
+				STDERR_FILENO);
+	}
+	return (d);
+}
+
 void			parse_light(char **params, t_view *view)
 {
 	t_light	*light;
@@ -32,7 +49,7 @@ void			parse_light(char **params, t_view *view)
 		type = LIGHT_TYPE_POINT;
 	else
 		return ;
-	if (check_paramnum(params, ft_strequ("l_point", params[0]) ? 2 : 3))
+	if (!check_paramnum(params, ft_strequ("l_ambient", params[0]) ? 2 : 3))
 	{
 		ft_putendl_fd("Wrong light paremeters numbers. Light skipped",
 				STDERR_FILENO);
@@ -42,8 +59,9 @@ void			parse_light(char **params, t_view *view)
 	light->type = type;
 	if (ft_strequ("l_point", params[0]))
 		light->o = parse_vector(params[1], light->o);
-	d = get_double_param((params[ft_strequ("l_point", params[0]) ? 2 : 1]),
-			"intensivity");
+	d = check_intensivity(get_double_param((params[ft_strequ("l_point",
+			params[0]) ? 2 : 1]),
+			"intensivity"));
 	light->inten = isnan(d) ? light->inten : d;
 	add_light(light, view);
 }
