@@ -49,6 +49,9 @@ void		space_init(char *filename, t_view *view)
 	view->space->figures = NULL;
 	view->space->lights = NULL;
 	parse_scene(filename, view);
+	if (view->space->cam == NULL)
+		view->space->cam = ray_init((t_vector){0, 0, 0},
+				(t_vector){0, 0, 0});
 }
 
 void		cam_rotate(t_ray *ray, t_vector vector)

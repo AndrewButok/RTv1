@@ -13,7 +13,7 @@
 #include "rtv1.h"
 #define PARAM_NUM 5
 
-static t_figure	*set_default_plane(t_view *view)
+static t_figure	*set_default_plane(void)
 {
 	t_figure *plane;
 
@@ -29,8 +29,11 @@ void			parse_fplane(char **params, t_view *view)
 	if (!ft_strequ("f_plane", params[0]))
 		return ;
 	if (!check_paramnum(params, PARAM_NUM))
-		return ;
-	plane = set_default_plane(view);
+	{
+		ft_putendl_fd("Wrong plane paremeters numbers. Figure missed", STDERR_FILENO);
+		return;
+	}
+	plane = set_default_plane();
 	plane->center = vnormalize(parse_vector(params[1], plane->center));
 	d = ft_atod(params[2]);
 	plane->radius = isnan(d) ? plane->radius : d;

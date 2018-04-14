@@ -13,7 +13,7 @@
 #include "rtv1.h"
 #define PARAM_NUM 6
 
-static t_figure	*set_default_cylinder(t_view *view)
+static t_figure	*set_default_cylinder(void)
 {
 	t_figure *cylinder;
 
@@ -30,8 +30,11 @@ void			parse_fcylinder(char **params, t_view *view)
 	if (!ft_strequ("f_cylinder", params[0]))
 		return ;
 	if (!check_paramnum(params, PARAM_NUM))
-		return ;
-	cylinder = set_default_cylinder(view);
+	{
+		ft_putendl_fd("Wrong cylinder paremeters numbers. Figure missed", STDERR_FILENO);
+		return;
+	}
+	cylinder = set_default_cylinder();
 	cylinder->center = parse_vector(params[1], cylinder->center);
 	cylinder->axis = vnormalize(parse_vector(params[2], cylinder->center));
 	d = ft_atod(params[3]);

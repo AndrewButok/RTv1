@@ -13,7 +13,7 @@
 #include "rtv1.h"
 #define PARAM_NUM 5
 
-static t_figure	*set_default_sphere(t_view *view)
+static t_figure	*set_default_sphere(void)
 {
 	t_figure *sphere;
 
@@ -29,8 +29,11 @@ void			parse_fsphere(char **params, t_view *view)
 	if (!ft_strequ("f_sphere", params[0]))
 		return ;
 	if (!check_paramnum(params, PARAM_NUM))
-		return ;
-	sphere = set_default_sphere(view);
+	{
+		ft_putendl_fd("Wrong cone paremeters numbers. Figure missed", STDERR_FILENO);
+		return;
+	}
+	sphere = set_default_sphere();
 	sphere->center = parse_vector(params[1], sphere->center);
 	d = ft_atod(params[2]);
 	sphere->radius = isnan(d) ? sphere->radius : d;

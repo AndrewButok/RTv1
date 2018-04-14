@@ -13,7 +13,7 @@
 #include "rtv1.h"
 #define PARAM_NUM 6
 
-static t_figure	*set_default_cone(t_view *view)
+static t_figure	*set_default_cone(void)
 {
 	t_figure *cone;
 
@@ -30,8 +30,12 @@ void			parse_fcone(char **params, t_view *view)
 	if (!ft_strequ("f_cone", params[0]))
 		return ;
 	if (!check_paramnum(params, PARAM_NUM))
-		return	;
-	cone = set_default_cone(view);
+	{
+		ft_putendl_fd("Wrong cone paremeters numbers. Figure missed",
+				STDERR_FILENO);
+		return;
+	}
+	cone = set_default_cone();
 	cone->center = parse_vector(params[1], cone->center);
 	cone->axis = vnormalize(parse_vector(params[2], cone->center));
 	d = ft_atod(params[3]);

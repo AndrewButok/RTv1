@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-static t_light	*set_default_light(t_view *view)
+static t_light	*set_default_light(void)
 {
 	t_light *light;
 
@@ -31,8 +31,14 @@ void			parse_light(char **params, t_view *view)
 	else if (ft_strequ("l_point", params[0]))
 		type = LIGHT_TYPE_POINT;
 	else
-		return ;
-	light = set_default_light(view);
+		return;
+	if (check_paramnum(params, ft_strequ("l_point", params[0]) ? 2 : 3))
+	{
+		ft_putendl_fd("Wrong light paremeters numbers. Light missed",
+				STDERR_FILENO);
+		return;
+	}
+	light = set_default_light();
 	light->type = type;
 	if (ft_strequ("l_point", params[0]))
 		light->o = parse_vector(params[1], light->o);
