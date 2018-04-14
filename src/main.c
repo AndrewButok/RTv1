@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mn.c                                               :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abutok <abutok@student.unit.ua>            +#+  +:+       +#+        */
+/*   By: abutok <abutok@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 01:11:00 by abutok            #+#    #+#             */
-/*   Updated: 2018/03/16 01:11:00 by abutok           ###   ########.fr       */
+/*   Updated: 2018/04/14 15:50:41 by abutok           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int			main(int argc, char **argv)
 	if (argc != 2)
 	{
 		ft_putstr("usage: RTv1 scene_filename\n");
+		return (0);
 	}
 	view_init(&view, argv[1]);
 	mlx_hook(view->win, 2, 0, &do_keyboard, view);
